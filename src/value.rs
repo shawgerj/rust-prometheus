@@ -18,8 +18,8 @@ impl ValueType {
     /// `metric_type` returns the corresponding proto metric type.
     pub fn metric_type(self) -> MetricType {
         match self {
-            ValueType::Counter => MetricType::COUNTER,
-            ValueType::Gauge => MetricType::GAUGE,
+            ValueType::Counter => MetricType::Counter,
+            ValueType::Gauge => MetricType::Gauge,
         }
     }
 }
@@ -109,7 +109,7 @@ impl<P: Atomic> Value<P> {
         let mut m = MetricFamily::default();
         m.set_name(self.desc.fq_name.clone());
         m.set_help(self.desc.help.clone());
-        m.set_field_type(self.val_type.metric_type());
+        m.set_type(self.val_type.metric_type());
         m.set_metric(from_vec!(vec![self.metric()]));
         m
     }

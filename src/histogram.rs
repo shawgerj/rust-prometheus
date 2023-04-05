@@ -769,7 +769,7 @@ impl Collector for Histogram {
         let mut m = proto::MetricFamily::default();
         m.set_name(self.core.desc.fq_name.clone());
         m.set_help(self.core.desc.help.clone());
-        m.set_field_type(proto::MetricType::HISTOGRAM);
+        m.set_type(proto::MetricType::Histogram);
         m.set_metric(from_vec!(vec![self.metric()]));
 
         vec![m]
@@ -802,7 +802,7 @@ impl HistogramVec {
         let variable_names = label_names.iter().map(|s| (*s).to_owned()).collect();
         let opts = opts.variable_labels(variable_names);
         let metric_vec =
-            MetricVec::create(proto::MetricType::HISTOGRAM, HistogramVecBuilder {}, opts)?;
+            MetricVec::create(proto::MetricType::Histogram, HistogramVecBuilder {}, opts)?;
 
         Ok(metric_vec as HistogramVec)
     }

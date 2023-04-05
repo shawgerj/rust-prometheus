@@ -74,7 +74,7 @@ impl Collector for PullingGauge {
         let mut m = MetricFamily::default();
         m.set_name(self.desc.fq_name.clone());
         m.set_help(self.desc.help.clone());
-        m.set_field_type(MetricType::GAUGE);
+        m.set_type(MetricType::Gauge);
         m.set_metric(from_vec!(vec![self.metric()]));
         vec![m]
     }

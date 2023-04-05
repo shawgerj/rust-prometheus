@@ -38,7 +38,7 @@ impl<T: MetricVecBuilder> MetricVecCore<T> {
         let mut m = MetricFamily::default();
         m.set_name(self.desc.fq_name.clone());
         m.set_help(self.desc.help.clone());
-        m.set_field_type(self.metric_type);
+        m.set_type(self.metric_type);
 
         let children = self.children.read();
         let mut metrics = Vec::with_capacity(children.len());

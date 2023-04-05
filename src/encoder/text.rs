@@ -66,7 +66,7 @@ impl TextEncoder {
             }
 
             // Write `# TYPE` header.
-            let metric_type = mf.get_field_type();
+            let metric_type = mf.get_type();
             let lowercase_type = format!("{:?}", metric_type).to_lowercase();
             writer.write_all("# TYPE ")?;
             writer.write_all(name)?;
@@ -76,13 +76,13 @@ impl TextEncoder {
 
             for m in mf.get_metric() {
                 match metric_type {
-                    MetricType::COUNTER => {
+                    MetricType::Counter => {
                         write_sample(writer, name, None, m, None, m.get_counter().get_value())?;
                     }
-                    MetricType::GAUGE => {
+                    MetricType::Gauge => {
                         write_sample(writer, name, None, m, None, m.get_gauge().get_value())?;
                     }
-                    MetricType::HISTOGRAM => {
+                    MetricType::Histogram => {
                         let h = m.get_histogram();
 
                         let mut inf_seen = false;
@@ -122,7 +122,7 @@ impl TextEncoder {
                             h.get_sample_count() as f64,
                         )?;
                     }
-                    MetricType::SUMMARY => {
+                    MetricType::Summary => {
                         let s = m.get_summary();
 
                         for q in s.get_quantile() {
@@ -147,7 +147,7 @@ impl TextEncoder {
                             s.get_sample_count() as f64,
                         )?;
                     }
-                    MetricType::UNTYPED => {
+                    MetricType::Untyped => {
                         unimplemented!();
                     }
                 }

@@ -47,6 +47,11 @@ tokio = { version = "^1.0", features = ["macros", "rt-multi-thread"] }
 [build-dependencies]
 protobuf-codegen-pure = { version = "^2.0", optional = true }
 
+[patch.crates-io]
+protobuf = { git = "https://github.com/shawgerj/rust-protobuf", branch = "v2.8" }
+protobuf-codegen-pure = { git = "https://github.com/shawgerj/rust-protobuf", branch = "v2.8" }
+
+
 [workspace]
 members = ["static-metric"]
 
